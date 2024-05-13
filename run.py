@@ -8,7 +8,6 @@ from text_message.message import message
 from location import*
 from make_bot_awake import*
 from health_assessment.read_from import*
-from cat import cat
 # from linebot.v3.messaging import (
 #     Configuration,
 #     ApiClient,
@@ -61,13 +60,13 @@ def send_message(line_bot_api,event,message):
 def handle_text_message(event):
     mtext = event.message.text
     # A.
-    if mtext == '使用說明':
+    if mtext == '*使用說明*':
         send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use())
     # B.
-    elif mtext == '搜尋附近健身房的使用說明':
+    elif mtext == '*搜尋附近健身房的使用說明*':
         send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use_location())
     # C.
-    elif mtext == '健康評估':
+    elif mtext == '*健康評估*':
         user_id = event.source.user_id
         profile = line_bot_api.get_profile(user_id)
         user_name = profile.display_name
@@ -75,15 +74,15 @@ def handle_text_message(event):
         print(user_id)
         send_message(line_bot_api=line_bot_api,event=event, message=message.health_assessment(user_name=user_name,user_id=user_id))
     # D.
-    # elif mtext == '取得心理健康狀況分析結果':
-    #     mental_assessment = google_sheets.mental()
-    #     send_message(line_bot_api=line_bot_api,event=event, message=mental_assessment)# type TextSendMessage
-    # E.
-    # elif mtext == '取得飲食狀況分析結果':
+    # elif mtext == '*取得飲食狀況分析結果*':
     #     eat_assessment = google_sheets.eat()
     #     send_message(line_bot_api=line_bot_api,event=event, message=eat_assessment)
+    # E.
+    # elif mtext == '*取得心理健康狀況分析結果*':
+    #     mental_assessment = google_sheets.mental()
+    #     send_message(line_bot_api=line_bot_api,event=event, message=mental_assessment)# type TextSendMessage
     # F.
-    # elif mtext == '取得適合的運動模式分析結果':
+    # elif mtext == '*取得生活作息狀況分析結果*':
     #     sport_assessment = google_sheets.sport()
     #     send_message(line_bot_api=line_bot_api,event=event, message=sport_assessment)
     

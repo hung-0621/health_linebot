@@ -38,6 +38,7 @@ class message():
     
     # B.搜尋健身房的使用說明
     def how_to_use_location()->TemplateSendMessage:  #轉盤樣板
+        # 改成字典
         Instruction=[
             '搜尋附近健身房的使用說明：',
             '1.首先點擊左下角的鍵盤按鈕',
@@ -52,7 +53,7 @@ class message():
                 columns=[
                     CarouselColumn(
                         thumbnail_image_url='https://i.imgur.com/4QfKuz1.png',
-                        title = s,
+                        title = instruction,
                         text='（請向右滑動）',
                         actions=[
                             PostbackTemplateAction(
@@ -60,7 +61,7 @@ class message():
                                 data='do_nothing'
                             )
                         ]
-                    )for s in Instruction
+                    )for instruction in Instruction
                 ]
             )
         )
@@ -73,9 +74,8 @@ class message():
         message = TextSendMessage(  
             text = f"""健康評估功能介紹：\n1.請您先填寫健康評估表單
                                         \n2.完成填寫後可以使用「飲食建議」、「心理健康建議」、「運動模式建議」查詢我們為您分析的結果
-                                        \n這是健康評估表單的連結：{form_url_with_id}
-                                        \n***請注意不要修改「用戶名稱」、「用戶ID」欄位***"""
-        )
+                                        \n這是健康評估表單的連結：{form_url_with_id}"""        
+                                        )
         return message
     # D.心理健康建議
     def mental_assessment():
