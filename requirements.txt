@@ -1,0 +1,8 @@
+google.generativeai
+line-bot-sdk
+flask
+requests
+googlemaps
+gspread
+oauth2client.service_account
+apscheduler
