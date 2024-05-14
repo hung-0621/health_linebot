@@ -87,9 +87,9 @@ def handle_text_message(event):
     #     send_message(line_bot_api=line_bot_api,event=event, message=sport_assessment)
     
     #                        ===機器人回復===
-    elif mtext == '健康建議':
-        send_message(line_bot_api=line_bot_api,event=event,message=message.health_advice())
-    elif mtext[:11] == "健康生活Linebot":
+    # elif mtext == '健康建議':
+    #     send_message(line_bot_api=line_bot_api,event=event,message=message.health_advice())
+    elif mtext[0] != "*" and mtext[-1] != "*":
         send_message(line_bot_api=line_bot_api,event=event,message=gemini.call_gemini(mtext=mtext))
 
 # 位置訊息        

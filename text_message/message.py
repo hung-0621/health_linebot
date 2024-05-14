@@ -5,21 +5,21 @@ class message():
     # ===機器人文字回復處理===
     
     # 健康建議(飲食建議、心理健康建議)
-    def health_advice():
-        message = TextSendMessage(
-            text='請選擇需要哪一方面的健康建議',
-            quick_reply=QuickReply(
-                items=[
-                    QuickReplyButton(
-                        action=MessageAction(label="飲食建議", text="健康生活Linebot給我飲食建議")
-                    ),
-                    QuickReplyButton(
-                        action=MessageAction(label="心理健康建議", text="健康生活Linebot給我心理健康建議")
-                    ),
-                ]
-            )
-        )
-        return message
+    # def health_advice():
+    #     message = TextSendMessage(
+    #         text='請選擇需要哪一方面的健康建議',
+    #         quick_reply=QuickReply(
+    #             items=[
+    #                 QuickReplyButton(
+    #                     action=MessageAction(label="飲食建議", text="健康生活Linebot給我飲食建議")
+    #                 ),
+    #                 QuickReplyButton(
+    #                     action=MessageAction(label="心理健康建議", text="健康生活Linebot給我心理健康建議")
+    #                 ),
+    #             ]
+    #         )
+    #     )
+    #     return message
     
     # ===選單按鈕文字處理===
     
@@ -31,7 +31,7 @@ class message():
         \n\t======使用說明======
         \n1. 輸入"健康評估"填寫表單，健康生活linebot將會為您分析各項數據。
         \n2.在您填寫完表單後，您將可以使用「心理健康建議」、「飲食建議」、「運動模式建議」功能查看您的健康數據。
-        \n3. 輸入"健康建議"取得您需要的建議。
+        \n3. 如果您需要一些建康相關的建議(不論是飲食、心理、生活、運動)，只要有相關的問題健康生活LineBot都會回應你！。
         """
         )
         return message
