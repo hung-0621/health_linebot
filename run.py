@@ -3,11 +3,12 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import*
 import os
+
 from text_message.gemini import gemini
 from text_message.message import message
 from location import*
 from make_bot_awake import*
-from health_assessment.read_from import*
+from get_user_data.handle_google_sheet import*
 # from linebot.v3.messaging import (
 #     Configuration,
 #     ApiClient,
@@ -84,7 +85,7 @@ def handle_text_message(event):
     # F.
     # elif mtext == '*取得生活作息狀況分析結果*':
     #     sport_assessment = google_sheets.sport()
-    #     send_message(line_bot_api=line_bot_api,event=event, message=sport_assessment)
+    #     send_message(line_bot_api=line_bot_api,event=event, message=life_assessment)
     
     #                        ===機器人回復===
     # elif mtext == '健康建議':

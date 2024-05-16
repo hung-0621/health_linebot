@@ -25,7 +25,7 @@ class google_sheets:
         list_of_hashes = sheet.get_all_records()
         return list_of_hashes
 
-# MySheet = google_sheets(user_name="宏",user_id="U8c1f7d50a448839c7f618636a8d2a8c0",sheet_name="健康評估 (回覆)",worksheet_name="DB")
+# MySheet = google_sheets(user_name="宏",user_id="U8c1f7d50a448839c7f618636a8d2a8c0",sheet_name="健康評估 (回覆)",worksheet_name="profile")
 # data = MySheet.get_worksheet_info()
 # print(data)
 # user_id = MySheet.user_id
