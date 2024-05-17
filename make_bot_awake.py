@@ -17,4 +17,4 @@ class SCHEDULED_HANDLER:
                 
         def set_schedule(self):
                 self.scheduler.add_job(self.make_bot_keep_awake, 'interval',
-                                        minutes=14, timezone=ZoneInfo('Asia/Taipei'))
+                                        minutes=1, timezone=ZoneInfo('Asia/Taipei'))
