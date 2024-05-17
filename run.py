@@ -32,6 +32,7 @@ def webhook():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
+
 # 喚醒Render
 scheduler = BackgroundScheduler()
 scheduler.add_job(SCHEDULED_HANDLER.handler, 'interval', minutes=14)
