@@ -13,7 +13,9 @@ class google_sheets:
         # 使用JSON 憑證檔案
         scope = ['https://spreadsheets.google.com/feeds',
                 'https://www.googleapis.com/auth/drive']
-        creds = ServiceAccountCredentials.from_json_keyfile_name("C:/Users/Kenny/Downloads/global-phalanx-421818-9a75b24317ed.json", scope)
+        #"/etc/secrets/google_sheet_json_keyfile"
+        #"C:/Users/Kenny/Downloads/global-phalanx-421818-9a75b24317ed.json"
+        creds = ServiceAccountCredentials.from_json_keyfile_name("/etc/secrets/google_sheet_json_keyfile", scope)
         client = gspread.authorize(creds)
 
         # 打開試算表並選擇工作表
