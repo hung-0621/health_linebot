@@ -1,7 +1,5 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from health_assessment import eat_assessment
-
 
 class google_sheets:
     
@@ -25,9 +23,12 @@ class google_sheets:
         list_of_hashes = sheet.get_all_records()
         return list_of_hashes
 
-# MySheet = google_sheets(user_name="宏",user_id="U8c1f7d50a448839c7f618636a8d2a8c0",sheet_name="健康評估 (回覆)",worksheet_name="profile")
-# data = MySheet.get_worksheet_info()
-# print(data)
+profileSheet = google_sheets(user_name="宏",user_id="U8c1f7d50a448839c7f618636a8d2a8c0",sheet_name="健康評估",worksheet_name="profile")
+answerSheet = google_sheets(user_name="宏",user_id="U8c1f7d50a448839c7f618636a8d2a8c0",sheet_name="健康評估",worksheet_name="answer")
+profileData = profileSheet.get_worksheet_info()
+answerData = answerSheet.get_worksheet_info()
+print("profile: ",profileData)
+print("answer: ",answerData)
 # user_id = MySheet.user_id
 # for row in data:
 #     if row["用戶ID"] == user_id:
