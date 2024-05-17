@@ -9,15 +9,6 @@ from text_message.message import message
 from location import*
 from keep_bot_awake import*
 from get_user_data.handle_google_sheet import*
-
-from linebot.v3.messaging import (
-    Configuration,
-    ApiClient,
-    MessagingApi,
-    ReplyMessageRequest,
-    TextMessage,
-    PushMessageRequest
-)
 # ========================從這裡執行==================================
 
 app = Flask(__name__)
@@ -41,16 +32,9 @@ def webhook():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-
-# configuration = Configuration(
-#     access_token = os.getenv('CHANNEL_ACCESS_TOKEN', None))
-
-# with ApiClient(configuration) as api_client:
-#     line_bot_api = MessagingApi(api_client)
-# scheduled_msg_handler = SCHEDULED_HANDLER(
-#     configuration=configuration, line_bot_api=line_bot_api)
+# 喚醒Render
 scheduler = BackgroundScheduler()
-scheduler.add_job(SCHEDULED_HANDLER.handler, 'interval', minutes=1)
+scheduler.add_job(SCHEDULED_HANDLER.handler, 'interval', minutes=14)
 scheduler.start()
 
 # 向Line傳送訊息
