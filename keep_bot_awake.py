@@ -7,8 +7,8 @@ class SCHEDULED_HANDLER:
         def handler():
                 url = os.getenv('API_URL', None)
                 try:
-                        requests.get(url)
                         print('Server pinged successfully')
+                        requests.get(url)
                 except Exception as e:
                         print(f'Request failed with error {e}')
 

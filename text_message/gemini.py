@@ -17,7 +17,7 @@ class gemini():
     # 加入儲存對話紀錄的功能
 
     def call_gemini(mtext):
-        model = genai.GenerativeModel('gemini-1.5-flash-latest')
+        model = genai.GenerativeModel('gemini-1.5-pro-latest')
         question = mtext
         response = model.generate_content(f"""你的身份是扮演一個專業的健康顧問(你的名字是健康生活LineBot)。
                                             以下是你的規範

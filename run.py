@@ -9,6 +9,7 @@ from text_message.message import message
 from location import*
 from keep_bot_awake import*
 from get_user_data.handle_google_sheet import*
+from health_assessment.eat_assessment import eat
 # ========================從這裡執行==================================
 
 app = Flask(__name__)
@@ -48,7 +49,15 @@ def send_message(line_bot_api,event,message):
 # 文字訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
+    # 用戶訊息
     mtext = event.message.text
+    # 用戶ID
+    user_id = event.source.user_id
+    # 用戶名稱
+    profile = line_bot_api.get_profile(user_id)
+    user_name = profile.display_name
+    print(user_name)
+    print(user_id)
     # A.
     if mtext == '*操作說明*':
         send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use())
@@ -57,16 +66,11 @@ def handle_text_message(event):
         send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use_location())
     # C.
     elif mtext == '*健康評估*':
-        user_id = event.source.user_id
-        profile = line_bot_api.get_profile(user_id)
-        user_name = profile.display_name
-        print(user_name)
-        print(user_id)
         send_message(line_bot_api=line_bot_api,event=event, message=message.health_assessment(user_name=user_name,user_id=user_id))
     # D.
-    # elif mtext == '*取得飲食狀況分析結果*':
-    #     eat_assessment = google_sheets.eat()
-    #     send_message(line_bot_api=line_bot_api,event=event, message=eat_assessment)
+    elif mtext == '*取得飲食狀況分析結果*':
+        eat_assessment = eat()
+        send_message(line_bot_api=line_bot_api,event=event, message=eat_assessment)
     # E.
     # elif mtext == '*取得心理健康狀況分析結果*':
     #     mental_assessment = google_sheets.mental()
@@ -77,8 +81,7 @@ def handle_text_message(event):
     #     send_message(line_bot_api=line_bot_api,event=event, message=life_assessment)
     
     #                        ===機器人回復===
-    # elif mtext == '健康建議':
-    #     send_message(line_bot_api=line_bot_api,event=event,message=message.health_advice())
+    
     elif mtext[0] != "*" and mtext[-1] != "*":
         send_message(line_bot_api=line_bot_api,event=event,message=gemini.call_gemini(mtext=mtext))
 

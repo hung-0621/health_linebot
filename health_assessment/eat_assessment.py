@@ -1,4 +1,5 @@
 class eat:
+    
     def __init__(self,user_id,age,height,weight,gender,activity_status):
         self.user_id = user_id
         self.age = age
