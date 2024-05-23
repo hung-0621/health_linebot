@@ -29,7 +29,7 @@ class location():
         else:
             photo_refernce = r['photos'][0]['photo_reference']
             photo_width = r['photos'][0]['width']
-            thurmbnail_image_url = 'https://maps.googleapis.com/maps/api/place/photo?key={}&photoreference={}&maxwidth={}'.format('AIzaSyCem1n62xtLBYLxWOZ3cMNcXGQ0-EKHOGk',photo_refernce,photo_width)
+            thurmbnail_image_url = 'https://maps.googleapis.com/maps/api/place/photo?key={}&photoreference={}&maxwidth={}'.format(GMap,photo_refernce,photo_width)
         return thurmbnail_image_url
     
     def get_address(event,r):
