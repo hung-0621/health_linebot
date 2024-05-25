@@ -10,5 +10,4 @@ Requests==2.31.0
 gunicorn==22.0.0
 google.generativeai==0.4.1
 mysql.connector
-dotenv
 setuptools==70.0.0
