@@ -1,4 +1,5 @@
 from flask import Flask, request, abort
+from flask_sqlalchemy import SQLAlchemy
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import*
@@ -9,21 +10,21 @@ from text_message.message import message
 from location import*
 from keep_bot_awake import*
 from get_user_data.handle_google_sheet import*
+from get_user_data.handle_MySQL import*
 from health_assessment.eat_assessment import eat
 # ========================從這裡執行==================================
 
 app = Flask(__name__)
 
-# 從環境變數取得CHANNEL_ACCESS_TOKEN and CHANNEL_SECRET(要自己設定)
-# 或是用下面這個
-# line_bot_api = LineBotApi() # 填你的line CHANNEL_ACCESS_TOKEN
-# handler = WebhookHandler() # 填你的line CHANNEL_ACCESS_TOKEN
-# 請不要向任何人提供你的CHANNEL_ACCESS_TOKEN 和 CHANNEL_SECRET
+MYSQL_HOST = os.getenv('MYSQL_HOST')
+MYSQL_USER = os.getenv('MYSQL_USER')
+MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
+MYSQL_DATABASE = os.getenv('MYSQL_DATABASE')
 
 line_bot_api = LineBotApi(os.getenv("CHANNEL_ACCESS_TOKEN"))
 handler = WebhookHandler(os.getenv("CHANNEL_SECRET"))
 
-# 跟Line連接
+# 跟LineBot連接
 @app.route("/callback", methods=['POST'])
 def webhook():
     signature = request.headers['X-Line-Signature']
@@ -33,11 +34,6 @@ def webhook():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-
-# 喚醒Render
-scheduler = BackgroundScheduler()
-scheduler.add_job(SCHEDULED_HANDLER.handler, 'interval', minutes=14)
-scheduler.start()
 
 # 向Line傳送訊息
 def send_message(line_bot_api,event,message):
@@ -89,6 +85,19 @@ def handle_text_message(event):
 @handler.add(MessageEvent,message=LocationMessage)
 def handle_location_message(event):
     send_message(line_bot_api=line_bot_api,event=event, message=location.map_location(event))
+    
+# 填完表單更新DB
+@app.route('/update', methods=['POST'])
+def update_MySQL():
+    print("=== update database ===")
+    time.sleep(3)
+    handle_MySQL.lond_data()
+    
+# 喚醒Render
+scheduler = BackgroundScheduler()
+scheduler.add_job(SCHEDULED_HANDLER.handler, 'interval', minutes=14)
+scheduler.start()
+
 
 if __name__ == "__main__":
     app.run()
