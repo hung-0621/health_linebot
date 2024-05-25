@@ -177,5 +177,5 @@ class handle_MySQL:
             time.sleep(60)  # 每 60 秒檢查一次數據是否有更新
 
     # 調用監控函數
-    getdata()
-    #monitor_updates()
+    # getdata()
+    # monitor_updates()
