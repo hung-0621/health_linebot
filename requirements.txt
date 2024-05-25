@@ -11,4 +11,4 @@ gunicorn==22.0.0
 google.generativeai==0.4.1
 mysql.connector
 dotenv
---upgrade setuptools
+setuptools==70.0.0
