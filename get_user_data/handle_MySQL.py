@@ -4,12 +4,9 @@ import json
 import hashlib
 import time
 import os
-from dotenv import load_dotenv
 
 class handle_MySQL:
     def __init__(self):
-        # 加載 .env 文件
-        load_dotenv()
 
         self.MYSQL_HOST = os.getenv('MYSQL_HOST')
         self.MYSQL_USER = os.getenv('MYSQL_USER')
