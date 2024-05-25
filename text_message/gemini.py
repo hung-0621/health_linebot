@@ -1,7 +1,5 @@
-import textwrap
 import os
 import google.generativeai as genai
-from IPython.display import Markdown
 from linebot.models import  TextSendMessage
 
 # 處理gemini ai
@@ -9,12 +7,6 @@ class gemini():
         
     GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
     genai.configure(api_key=GOOGLE_API_KEY)
-
-    # def to_markdown(text):
-    #     text = text.replace('•', '  *')
-    #     return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
-    
-    # 加入儲存對話紀錄的功能
 
     def call_gemini(mtext):
         model = genai.GenerativeModel('gemini-1.5-pro-latest')

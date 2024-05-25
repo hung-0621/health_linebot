@@ -2,7 +2,8 @@ from flask import request
 from linebot.models import *
 import os,time,googlemaps,json
 
-GMap = googlemaps.Client(key=os.getenv('GMAP_API'))
+GOOGLE_MAP_API_KEY = os.getenv('GOOGLE_MAP_API_KEY')
+GMap = googlemaps.Client(key=os.getenv(GOOGLE_MAP_API_KEY))
 
 class location():
     def map_location(event):
@@ -29,7 +30,7 @@ class location():
         else:
             photo_refernce = r['photos'][0]['photo_reference']
             photo_width = r['photos'][0]['width']
-            thurmbnail_image_url = 'https://maps.googleapis.com/maps/api/place/photo?key={}&photoreference={}&maxwidth={}'.format(GMap,photo_refernce,photo_width)
+            thurmbnail_image_url = 'https://maps.googleapis.com/maps/api/place/photo?key={}&photoreference={}&maxwidth={}'.format(GOOGLE_MAP_API_KEY,photo_refernce,photo_width)
         return thurmbnail_image_url
     
     def get_address(event,r):
