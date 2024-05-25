@@ -3,7 +3,7 @@ from linebot.models import *
 import os,time,googlemaps,json
 
 GOOGLE_MAP_API_KEY = os.getenv('GOOGLE_MAP_API_KEY')
-GMap = googlemaps.Client(key=os.getenv(GOOGLE_MAP_API_KEY))
+GMap = googlemaps.Client(key=GOOGLE_MAP_API_KEY)
 
 class location():
     def map_location(event):
