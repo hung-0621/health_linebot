@@ -3,9 +3,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 class google_sheets:
     
-    def __init__(self,user_name,user_id,sheet_name,worksheet_name):
-        self.user_name = user_name
-        self.user_id = user_id
+    def __init__(self,sheet_name,worksheet_name):
+        # self.user_name = user_name
+        # self.user_id = user_id
         self.sheet_name = sheet_name
         self.worksheet_name = worksheet_name
     
