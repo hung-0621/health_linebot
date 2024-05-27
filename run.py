@@ -90,7 +90,7 @@ def handle_location_message(event):
 def update_MySQL():
     print("=== update database ===")
     time.sleep(3)
-    handle_MySQL.lond_data()
+    handle_MySQL.load_data()
     
 # 喚醒Render
 scheduler = BackgroundScheduler()

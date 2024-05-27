@@ -1,12 +1,10 @@
-class eat:
+from health_assessment.assessment import health_assessment
+
+class eat(health_assessment):
     
-    def __init__(self,user_id,age,height,weight,gender,activity_status):
-        self.user_id = user_id
-        self.age = age
-        self.height = height
-        self.weight = weight
-        self.gender = gender
-        self.activity_status = activity_status
+    def __init__(self,profile,answer):
+        super().__init__(profile,answer)
+        self.activity_status = answer[7]
         
     def TDEE_Calculate(self)->float:
         #男性：TDEE = (10 × 体重kg) + (6.25 × 身高cm) - (5 × 年龄岁) + 5
@@ -30,4 +28,8 @@ class eat:
                 TDEE *= 1.9
                 
         return TDEE
+# if __name__ == "__main__":
+#     TDEE = eat()
+#     TDEE = eat.TDEE_Calculate()
+#     print(TDEE)
         
