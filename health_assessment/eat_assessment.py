@@ -1,4 +1,4 @@
-from assessment import health_assessment
+from health_assessment.assessment import health_assessment
 from linebot.models import *
 
 class eat(health_assessment):

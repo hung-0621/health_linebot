@@ -1,5 +1,5 @@
-import sys
-sys.path.append("/Users/Kenny/Documents/health_linebot_project/health_linebot")
+# import sys
+# sys.path.append("/Users/Kenny/Documents/health_linebot_project/health_linebot")
 
 from get_user_data.handle_MySQL import *
 
