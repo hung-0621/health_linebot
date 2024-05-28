@@ -9,6 +9,7 @@ from text_message.message import message
 from location import*
 from keep_bot_awake import*
 from get_user_data.handle_MySQL import*
+from health_assessment.assessment import health_assessment
 from health_assessment.eat_assessment import eat
 # ========================從這裡執行==================================
 
