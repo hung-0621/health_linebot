@@ -87,7 +87,10 @@ def handle_location_message(event):
 # 填完表單更新DB
 @app.route('/update', methods=['POST'])
 def update_MySQL():
+    print(request.data)
+    print(request.headers)
     data = request.get_json()
+    print(data)
     status = data.get("status")
     print(f"recive status: {status}")
     if bool(status):
