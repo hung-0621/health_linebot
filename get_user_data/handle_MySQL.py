@@ -4,13 +4,13 @@ import json
 import hashlib
 import time
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # 加载 .env 文件
-load_dotenv()
+# load_dotenv()
 
 class handle_MySQL:
-    def __init__(self,user_id:str):
+    def __init__(self):
         # 从环境变量获取配置信息
         self.MYSQL_HOST = os.getenv('MYSQL_HOST')
         self.MYSQL_USER = os.getenv('MYSQL_USER')
@@ -18,10 +18,9 @@ class handle_MySQL:
         self.MYSQL_DATABASE = os.getenv('MYSQL_DATABASE')
         self.MYSQL_PORT = os.getenv('MYSQL_PORT')
         self.GOOGLE_SHEET_URL = os.getenv('GOOGLE_SHEET_URL')
-        self.user_id = user_id
         
         # 连接到 Google Sheets
-        self.gc = gspread.service_account(filename="C:/Users/Kenny/Downloads/global-phalanx-421818-9a75b24317ed.json")
+        self.gc = gspread.service_account(filename="/etc/secrets/google_sheet_json_keyfile")
         
         self.last_profile_hash = None
         self.last_answer_hash = None
@@ -119,7 +118,7 @@ class handle_MySQL:
             mycursor.close()
             mydb.close()
 
-    def get_data(self,table_name):
+    def get_data(self,user_id:str,table_name:str):
         mydb = self.connect_to_database()
         mycursor = mydb.cursor()
 
@@ -128,7 +127,7 @@ class handle_MySQL:
             mycursor.execute(f"SELECT * FROM {table_name}")
             datas = mycursor.fetchall()
             for row in datas:
-                if row[0]==self.user_id:
+                if row[0] == user_id:
                     return row
                 
         except Exception as e:
@@ -158,11 +157,3 @@ class handle_MySQL:
                 self.last_answer_hash = current_answer_hash
 
             time.sleep(60)  # 每 60 秒检查一次数据是否有更新
-
-if __name__ == "__main__":
-    monitor = handle_MySQL(user_id="U8c1f7d50a448839c7f618636a8d2a8c0")
-    # monitor.monitor_updates()
-    profile = monitor.get_data(table_name="profile")
-    answer = monitor.get_data(table_name="answer")
-    print(profile)
-    print(answer)

@@ -1,4 +1,4 @@
-from flask import Flask, request, abort
+from flask import Flask, request, abort, jsonify
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import*
@@ -8,7 +8,6 @@ from text_message.gemini import gemini
 from text_message.message import message
 from location import*
 from keep_bot_awake import*
-from get_user_data.handle_google_sheet import*
 from get_user_data.handle_MySQL import*
 from health_assessment.eat_assessment import eat
 # ========================從這裡執行==================================
@@ -65,7 +64,7 @@ def handle_text_message(event):
     # D.
     elif mtext == '*取得飲食狀況分析結果*':
         eat_assessment = eat()
-        send_message(line_bot_api=line_bot_api,event=event, message=eat_assessment)
+        send_message(line_bot_api=line_bot_api,event=event, message=message.eat_assessment())
     # E.
     # elif mtext == '*取得心理健康狀況分析結果*':
     #     mental_assessment = google_sheets.mental()
@@ -88,9 +87,21 @@ def handle_location_message(event):
 # 填完表單更新DB
 @app.route('/update', methods=['POST'])
 def update_MySQL():
-    print("=== update database ===")
-    time.sleep(3)
-    handle_MySQL.load_data()
+    data = request.get_json()
+    status = data.get("status")
+    print(f"recive status: {status}")
+    if bool(status):
+        try:
+            print("=== update database ===")
+            time.sleep(3)
+            database = handle_MySQL()
+            database.load_data()
+            print("=== finish update ===")
+            return jsonify({'message': 'POST request received'}), 200
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return jsonify({'message': 'An error occurred'}), 500
+            
     
 # 喚醒Render
 scheduler = BackgroundScheduler()
@@ -100,3 +111,4 @@ scheduler.start()
 
 if __name__ == "__main__":
     app.run()
+    

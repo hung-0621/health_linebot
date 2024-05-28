@@ -28,8 +28,4 @@ class eat(health_assessment):
                 TDEE *= 1.9
                 
         return TDEE
-# if __name__ == "__main__":
-#     TDEE = eat()
-#     TDEE = eat.TDEE_Calculate()
-#     print(TDEE)
         
