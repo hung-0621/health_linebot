@@ -51,7 +51,6 @@ def handle_text_message(event):
     profile = line_bot_api.get_profile(user_id)
     user_name = profile.display_name
     print(user_name)
-    print(user_id)
     # A.
     if mtext == '*操作說明*':
         send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use())
