@@ -63,7 +63,7 @@ def handle_text_message(event):
         send_message(line_bot_api=line_bot_api,event=event, message=message.health_assessment(user_name=user_name,user_id=user_id))
     # D.
     elif mtext == '*取得飲食狀況分析結果*':
-        eat_assessment = eat(user_id=user_id)
+        eat_assessment = eat(user_id)
         send_message(line_bot_api=line_bot_api,event=event, message=eat_assessment.eat_template())
     # E.
     # elif mtext == '*取得心理健康狀況分析結果*':
