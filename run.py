@@ -63,8 +63,8 @@ def handle_text_message(event):
         send_message(line_bot_api=line_bot_api,event=event, message=message.health_assessment(user_name=user_name,user_id=user_id))
     # D.
     elif mtext == '*取得飲食狀況分析結果*':
-        eat_assessment = eat()
-        send_message(line_bot_api=line_bot_api,event=event, message=message.eat_assessment())
+        eat_assessment = eat(user_id=user_id)
+        send_message(line_bot_api=line_bot_api,event=event, message=eat_assessment.eat_template())
     # E.
     # elif mtext == '*取得心理健康狀況分析結果*':
     #     mental_assessment = google_sheets.mental()
@@ -87,12 +87,8 @@ def handle_location_message(event):
 # 填完表單更新DB
 @app.route('/update', methods=['POST'])
 def update_MySQL():
-    print(request.data)
-    print(request.headers)
     data = request.get_json()
-    print(data)
     status = data.get("status")
-    print(f"recive status: {status}")
     if bool(status):
         try:
             print("=== update database ===")

@@ -2,16 +2,15 @@ import gspread
 import mysql.connector
 import json
 import hashlib
-import time
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv # 本地開發時打開
 
-# 加载 .env 文件
-# load_dotenv()
+# load .env文件
+load_dotenv() # 本地開發時打開
 
 class handle_MySQL:
     def __init__(self):
-        # 从环境变量获取配置信息
+        
         self.MYSQL_HOST = os.getenv('MYSQL_HOST')
         self.MYSQL_USER = os.getenv('MYSQL_USER')
         self.MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
@@ -19,8 +18,10 @@ class handle_MySQL:
         self.MYSQL_PORT = os.getenv('MYSQL_PORT')
         self.GOOGLE_SHEET_URL = os.getenv('GOOGLE_SHEET_URL')
         
-        # 连接到 Google Sheets
-        self.gc = gspread.service_account(filename="/etc/secrets/google_sheet_json_keyfile")
+        # 連接到 Google Sheets
+        # "C:/Users/Kenny/Downloads/global-phalanx-421818-9a75b24317ed.json"
+        # "/etc/secrets/google_sheet_json_keyfile"
+        self.gc = gspread.service_account(filename="C:/Users/Kenny/Downloads/global-phalanx-421818-9a75b24317ed.json")
         
         self.last_profile_hash = None
         self.last_answer_hash = None
@@ -117,18 +118,17 @@ class handle_MySQL:
         finally:
             mycursor.close()
             mydb.close()
-
-    def get_data(self,user_id:str,table_name:str):
+            
+    # 取得table資料
+    def get_table_data(self,table_name:str)->tuple:
         mydb = self.connect_to_database()
         mycursor = mydb.cursor()
 
         try:
             # 查找table
             mycursor.execute(f"SELECT * FROM {table_name}")
-            datas = mycursor.fetchall()
-            for row in datas:
-                if row[0] == user_id:
-                    return row
+            data = mycursor.fetchall()
+            return data
                 
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -136,24 +136,40 @@ class handle_MySQL:
         finally:
             mycursor.close()
             mydb.close()
+            
+    # 取得user那列
+    def get_user_id_row(self,table_data:tuple,user_id:str)->tuple:
+        for row in table_data:
+            try:
+                if row[0]==user_id:
+                    return row
+            except:
+                print("user not in table")
+                
+    # 原本的資料很醜，所以調整一下位置         
+    def new_correct_answer(self,correct_answer:tuple)->list:
+        new_correct_answer=[[answer] for answer in correct_answer[0]]
+        for answer in correct_answer[1:]:
+            for i in range(0,len(answer)):
+                if answer[i]!=None:
+                    new_correct_answer[i].append(answer[i])
+        return new_correct_answer
+    
+    def get_column_data(self,table_name:str)->tuple:
+        mydb = self.connect_to_database()
+        mycursor = mydb.cursor()
 
-    def monitor_updates(self):
-        while True:
-            worksheet_profile = self.gc.open_by_url(self.GOOGLE_SHEET_URL).worksheet('profile')
-            worksheet_answer = self.gc.open_by_url(self.GOOGLE_SHEET_URL).worksheet('answer')
+        try:
+            # 查找table
+            mycursor.execute(f"SHOW COLUMNS FROM {table_name}")
+            data = mycursor.fetchall()
+            result=[]
+            for i in range(len(data)):
+                result.append(data[i][0])
+            return result
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
-            data_profile = worksheet_profile.get_all_records()
-            data_answer = worksheet_answer.get_all_records()
-
-            current_profile_hash = self.hash_data(data_profile)
-            current_answer_hash = self.hash_data(data_answer)
-
-            if current_profile_hash != self.last_profile_hash:
-                self.load_data()  # 如果 profile 数据有更新，重新加载数据到 MySQL 数据库
-                self.last_profile_hash = current_profile_hash
-
-            if current_answer_hash != self.last_answer_hash:
-                self.load_data()  # 如果 answer 数据有更新，重新加载数据到 MySQL 数据库
-                self.last_answer_hash = current_answer_hash
-
-            time.sleep(60)  # 每 60 秒检查一次数据是否有更新
+        finally:
+            mycursor.close()
+            mydb.close()
