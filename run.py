@@ -11,7 +11,7 @@ from keep_bot_awake import*
 from get_user_data.handle_MySQL import*
 from health_assessment.assessment import health_assessment
 from health_assessment.eat_assessment import eat
-from dotenv import load_dotenv 
+#from dotenv import load_dotenv 
 # ========================從這裡執行==================================
 # load_dotenv()
 
