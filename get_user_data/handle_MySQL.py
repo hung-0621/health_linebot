@@ -3,10 +3,10 @@ import mysql.connector
 import json
 import hashlib
 import os
-#from dotenv import load_dotenv # 本地開發時打開
+from dotenv import load_dotenv # 本地開發時打開
 
 # load .env文件
-#load_dotenv() # 本地開發時打開
+load_dotenv() # 本地開發時打開
 
 class handle_MySQL:
     def __init__(self):

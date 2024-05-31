@@ -11,7 +11,9 @@ from keep_bot_awake import*
 from get_user_data.handle_MySQL import*
 from health_assessment.assessment import health_assessment
 from health_assessment.eat_assessment import eat
+from dotenv import load_dotenv 
 # ========================從這裡執行==================================
+# load_dotenv()
 
 app = Flask(__name__)
 
@@ -56,8 +58,8 @@ def handle_text_message(event):
     if mtext == '*操作說明*':
         send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use())
     # B.
-    elif mtext == '*搜尋附近健身房的使用說明*':
-        send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use_location())
+    # elif mtext == '*搜尋附近健身房的使用說明*':
+    #     send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use_location())
     # C.
     elif mtext == '*健康評估*':
         send_message(line_bot_api=line_bot_api,event=event, message=message.health_assessment(user_name=user_name,user_id=user_id))
