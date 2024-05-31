@@ -1,11 +1,12 @@
+import sys
+sys.path.append("C:/Users/Kenny/Documents/health_linebot_project/health_linebot/health_assessment")
 from health_assessment.assessment import health_assessment
 from linebot.models import *
 
 class eat(health_assessment):
     
-    def __init__(self,user_id:str):
-        super().__init__()
-        self.user_id = user_id
+    def __init__(self,user_id):
+        health_assessment.__init__(self,user_id=user_id)
         self.gender = self.profile[2]
         self.age = self.profile[3]
         self.height = self.profile[4]

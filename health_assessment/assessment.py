@@ -11,7 +11,7 @@ class health_assessment():
         self.profile = self.handle_user_data(table_name = "profile",user_id=self.user_id)
         self.answer = self.handle_user_data(table_name = "answer",user_id=self.user_id)
         self.correct_answer = self.handle_correct_answer()
-        self.respond = handle_MySQL.get_table_data(table_name="respond")
+        self.respond = self.handle_respond_data()
         self.title = self.handle_column_data()
         
         self.life_answer = self.answer[7:12]
@@ -23,20 +23,23 @@ class health_assessment():
         table_data = data.get_table_data(table_name=table_name)
         user_data = data.get_user_id_row(table_data=table_data, user_id=user_id)
         return user_data
-    
+    def handle_respond_data(self)->tuple:
+        data = handle_MySQL()
+        respond_data = data.get_table_data(table_name="respond")
+        return respond_data
     # google sheet "answer" worksheet column name
-    def handle_column_data()->tuple:
+    def handle_column_data(self)->tuple:
         data = handle_MySQL()
         column_data = data.get_column_data(table_name="answer")
         return column_data
     
     # 取得正確答案 correctanswer
-    def handle_correct_answer()->list:
+    def handle_correct_answer(self)->list:
         data = handle_MySQL()
         # 取得正確答案的資料
         correct_answer = data.get_table_data(table_name="correctanswer")
-        correct_answer = data.new_correct_answer(correct_answer)
-        return correct_answer
+        new_correct_answer = data.new_correct_answer(correct_answer)
+        return new_correct_answer
     
     # 取得回答不正確的答案
     def handle_incorrect_answer(self,user_answer:tuple,correct_answer:list)->list:
