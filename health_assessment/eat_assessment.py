@@ -13,10 +13,10 @@ class eat(health_assessment):
         self.weight = self.profile[5]
         self.activity_status = self.answer[7]
         
-        self.eat_title = self.title[1:6]
-        self.eat_answer = self.answer[1:6]
-        self.eat_correct_answer = self.correct_answer[0:5]
-        self.eat_respond = self.respond[0:5]
+        self.eat_title = self.title[1:7]
+        self.eat_answer = self.answer[1:7]
+        self.eat_correct_answer = self.correct_answer[0:6]
+        self.eat_respond = self.respond[0:6]
         
     def TDEE_Calculate(self)->float:
         #男性：TDEE = (10 × 体重kg) + (6.25 × 身高cm) - (5 × 年龄岁) + 5

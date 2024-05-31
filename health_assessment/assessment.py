@@ -23,9 +23,10 @@ class health_assessment():
         table_data = data.get_table_data(table_name=table_name)
         user_data = data.get_user_id_row(table_data=table_data, user_id=user_id)
         return user_data
+    # 取得respond_data
     def handle_respond_data(self)->tuple:
         data = handle_MySQL()
-        respond_data = data.get_table_data(table_name="respond")
+        respond_data = data.get_table_data(table_name="respond")[0]
         return respond_data
     # google sheet "answer" worksheet column name
     def handle_column_data(self)->tuple:
