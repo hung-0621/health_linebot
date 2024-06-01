@@ -14,8 +14,7 @@ class health_assessment():
         self.respond = self.handle_respond_data()
         self.title = self.handle_column_data()
         
-        self.life_answer = self.answer[7:12]
-        self.mental_answer = self.answer[12:] 
+        self.mental_answer = self.answer[13:] 
     # 取得使用者訊息 profile, answer
     def handle_user_data(self,table_name:str,user_id:str)->tuple:
         data = handle_MySQL()

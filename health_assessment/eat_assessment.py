@@ -6,7 +6,7 @@ from linebot.models import *
 class eat(health_assessment):
     
     def __init__(self,user_id):
-        health_assessment.__init__(self,user_id=user_id)
+        health_assessment.__init__(self,user_id)
         self.gender = self.profile[2]
         self.age = self.profile[3]
         self.height = self.profile[4]
@@ -17,6 +17,10 @@ class eat(health_assessment):
         self.eat_answer = self.answer[1:7]
         self.eat_correct_answer = self.correct_answer[0:6]
         self.eat_respond = self.respond[0:6]
+        
+        self.eat_incorrect_answer = self.handle_incorrect_answer(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
+        self.eat_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
+        self.eat_incorrect_title = [self.correct_answer[i] for i in self.eat_incorrect_answer_index]
         
     def TDEE_Calculate(self)->float:
         #男性：TDEE = (10 × 体重kg) + (6.25 × 身高cm) - (5 × 年龄岁) + 5
@@ -43,16 +47,14 @@ class eat(health_assessment):
     
     # D.飲食建議
     def eat_template(self)->TemplateSendMessage:
-        eat_incorrect_answer = self.handle_incorrect_answer(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
-        eat_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
-        eat_incorrect_title = [self.correct_answer[i] for i in eat_incorrect_answer_index]
+        
         message = TemplateSendMessage(
-            alt_text='搜尋健身房功能的使用說明',
+            alt_text='飲食建議回傳訊息',
             template=CarouselTemplate(
                 columns=[
                     CarouselColumn(
                         thumbnail_image_url="https://imgur.com/dxHQuNH.jpg",
-                        title = f"題目:{eat_incorrect_title[i]}\n您的回答:{eat_incorrect_answer[i]}",
+                        title = f"題目:{self.eat_incorrect_title[i]}\n您的回答:{self.eat_incorrect_answer[i]}",
                         text=self.eat_respond[i],
                         actions=[
                             PostbackTemplateAction(
@@ -60,7 +62,7 @@ class eat(health_assessment):
                                 data='do_nothing'
                             )
                         ]
-                    )for i in range(len(eat_incorrect_title))
+                    )for i in range(len(self.eat_incorrect_title))
                 ]
             )
         )
