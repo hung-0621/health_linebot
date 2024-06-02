@@ -3,10 +3,10 @@ import mysql.connector
 import json
 import hashlib
 import os
-# from dotenv import load_dotenv # 本地開發時打開
+from dotenv import load_dotenv # 本地開發時打開
 
-# # # load .env文件
-# load_dotenv() # 本地開發時打開
+# # load .env文件
+load_dotenv() # 本地開發時打開
 
 class handle_MySQL:
     def __init__(self):
@@ -21,7 +21,7 @@ class handle_MySQL:
         # 連接到 Google Sheets
         # "C:/Users/Kenny/Downloads/global-phalanx-421818-9a75b24317ed.json"
         # "/etc/secrets/google_sheet_json_keyfile"
-        self.gc = gspread.service_account(filename="/etc/secrets/google_sheet_json_keyfile")
+        self.gc = gspread.service_account(filename="C:/Users/Kenny/Downloads/global-phalanx-421818-9a75b24317ed.json")
     
     def connect_to_database(self):
         return mysql.connector.connect(

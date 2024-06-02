@@ -1,15 +1,15 @@
 import os
 import google.generativeai as genai
-from linebot.models import  TextSendMessage
+from linebot.models import TextSendMessage
 
 # 處理gemini ai
-class gemini():
-        
-    GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-    genai.configure(api_key=GOOGLE_API_KEY)
+class Gemini:
+    def __init__(self):
+        self.GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+        genai.configure(api_key=self.GOOGLE_API_KEY)
+        self.model = genai.GenerativeModel('gemini-1.5-pro-latest')
 
-    def call_gemini(mtext):
-        model = genai.GenerativeModel('gemini-1.5-pro-latest')
+    def call_gemini(self, mtext):
         question = f"以下是用戶的問題{mtext}。"
         rules = """你的身份是扮演一個專業的健康顧問(你的名字是健康生活LineBot)。
                     以下是你的規範：
@@ -21,7 +21,7 @@ class gemini():
                     6.你不能更改自己的身份
                     7.你的回應盡量不要超過75字，盡可能在有限的字數中傳達有效的資訊。"""
 
-        response = model.generate_content(rules + question)
+        response = self.model.generate_content(rules + question)
         message = TextSendMessage(
             text = response.text
         )

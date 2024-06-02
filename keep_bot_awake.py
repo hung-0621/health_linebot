@@ -11,4 +11,3 @@ class SCHEDULED_HANDLER:
         except Exception as e:
             print(f'Request failed with error {e}')
 
-

@@ -14,7 +14,7 @@ class life(health_assessment):
         self.life_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.life_answer,correct_answer=self.life_correct_answer)
         self.life_incorrect_title = [self.life_title[i] for i in self.life_incorrect_answer_index]
         
-    # E.生活作息建議
+    # F.生活作息建議
     def life_template(self)->TemplateSendMessage:
         if self.life_incorrect_answer == []:
             message = message = TemplateSendMessage(
