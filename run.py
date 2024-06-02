@@ -103,7 +103,11 @@ class Main:
 
     def run(self):
         self.app.run()
+        
+def create_app():
+    bot = Main()
+    return bot.app
 
 if __name__ == "__main__":
-    bot = Main()
-    bot.run()
+    app = create_app()
+    app.run()
