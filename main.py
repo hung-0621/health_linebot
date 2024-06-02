@@ -83,7 +83,7 @@ class Main:
             if bool(status):
                 try:
                     print("=== update database ===")
-                    time.sleep(2)
+                    time.sleep(3)
                     database = handle_MySQL()
                     database.load_data()
                     print("=== finish update ===")
