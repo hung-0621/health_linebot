@@ -12,7 +12,7 @@ class life(health_assessment):
         self.life_respond = self.respond[6:12]
         self.life_incorrect_answer = self.handle_incorrect_answer(user_answer=self.life_answer,correct_answer=self.life_correct_answer)
         self.life_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.life_answer,correct_answer=self.life_correct_answer)
-        self.life_incorrect_title = [self.title[i] for i in self.life_incorrect_answer_index]
+        self.life_incorrect_title = [self.life_title[i+1] for i in self.life_incorrect_answer_index]
         
     # E.生活作息建議
     def life_template(self)->TemplateSendMessage:
