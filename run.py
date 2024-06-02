@@ -104,7 +104,7 @@ class Main:
     def run(self):
         self.app.run()
         
-def create_app():
+def create_app(environ=None, start_response=None):
     bot = Main()
     return bot.app
 
