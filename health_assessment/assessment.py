@@ -2,6 +2,7 @@
 # sys.path.append("/Users/Kenny/Documents/health_linebot_project/health_linebot")
 
 from get_user_data.handle_MySQL import *
+from linebot.models import *
 
 class health_assessment():
     
@@ -49,5 +50,21 @@ class health_assessment():
     # 取得不確答案在使用者answer的第幾項
     def handle_incorrect_answer_index(self,user_answer:tuple,correct_answer:list)->list:
         return [i for i in range(len(correct_answer)) if user_answer[i] not in correct_answer[i]]
+    
+    # 沒有不正確的答案，回傳該行
+    def no_incorrect_answer_column(self,title:str,image_url:str):
+        message = CarouselColumn(
+                        thumbnail_image_url=image_url,  #顯示的圖片
+                        title=f'您在"{title}"方面的狀況相當完美！\n請繼續維持！',  #主標題
+                        text='歡迎點選其他建議項目！',  #副標題
+                        actions=[
+                            PostbackTemplateAction(
+                                label=' ',
+                                data='do_nothing'
+                            )
+                        ]
+                    )
+        return message
+
 
     

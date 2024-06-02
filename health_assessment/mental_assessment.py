@@ -17,23 +17,33 @@ class mental(health_assessment):
         
     # E.心理健康建議
     def mental_template(self):
-        message = TemplateSendMessage(
-            alt_text='心理健康建議',
-            template=CarouselTemplate(
-                columns=[
-                    CarouselColumn(
-                        thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/mental_image.jpg",
-                        title = f"題目:{self.mental_incorrect_title[i]}\n您的回答:程度{self.mental_incorrect_answer[i]}",
-                        text=self.mental_respond[i],
-                        actions=[
-                            PostbackTemplateAction(
-                                label=' ',
-                                data='do_nothing'
-                            )
-                        ]
-                    )for i in range(len(self.mental_incorrect_title))
-                ]
+        if self.mental_incorrect_answer == []:
+            message = message = TemplateSendMessage(
+                alt_text='心理健康建議',
+                template=CarouselTemplate(
+                    columns=[
+                        self.no_incorrect_answer_column(title="心理",image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/mental_image.jpg")
+                    ]
+                )
             )
-        )
+        else:
+            message = TemplateSendMessage(
+                alt_text='心理健康建議',
+                template=CarouselTemplate(
+                    columns=[
+                        CarouselColumn(
+                            thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/mental_image.jpg",
+                            title = f"題目:{self.mental_incorrect_title[i]}\n您的回答:程度{self.mental_incorrect_answer[i]}",
+                            text=self.mental_respond[i],
+                            actions=[
+                                PostbackTemplateAction(
+                                    label=' ',
+                                    data='do_nothing'
+                                )
+                            ]
+                        )for i in range(len(self.mental_incorrect_title))
+                    ]
+                )
+            )
         return message
                 

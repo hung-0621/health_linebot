@@ -16,22 +16,32 @@ class life(health_assessment):
         
     # E.生活作息建議
     def life_template(self)->TemplateSendMessage:
-        message = TemplateSendMessage(
-            alt_text='生活作息建議',
-            template=CarouselTemplate(
-                columns=[
-                    CarouselColumn(
-                        thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/life_image.jpg",
-                        title = f"題目:{self.life_incorrect_title[i]}\n您的回答:{self.life_incorrect_answer[i]}",
-                        text=self.life_respond[i],
-                        actions=[
-                            PostbackTemplateAction(
-                                label=' ',
-                                data='do_nothing'
-                            )
-                        ]
-                    )for i in range(len(self.life_incorrect_title))
-                ]
+        if self.life_incorrect_answer == []:
+            message = message = TemplateSendMessage(
+                alt_text='生活作息建議',
+                template=CarouselTemplate(
+                    columns=[
+                        self.no_incorrect_answer_column(title="生活作息建議",image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/life_image.jpg")
+                    ]
+                )
             )
-        )
+        else:
+            message = TemplateSendMessage(
+                alt_text='生活作息建議',
+                template=CarouselTemplate(
+                    columns=[
+                        CarouselColumn(
+                            thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/life_image.jpg",
+                            title = f"題目:{self.life_incorrect_title[i]}\n您的回答:{self.life_incorrect_answer[i]}",
+                            text=self.life_respond[i],
+                            actions=[
+                                PostbackTemplateAction(
+                                    label=' ',
+                                    data='do_nothing'
+                                )
+                            ]
+                        )for i in range(len(self.life_incorrect_title))
+                    ]
+                )
+            )
         return message
