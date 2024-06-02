@@ -21,7 +21,7 @@ class life(health_assessment):
             template=CarouselTemplate(
                 columns=[
                     CarouselColumn(
-                        thumbnail_image_url="https://imgur.com/dxHQuNH.jpg",
+                        thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/life_image.jpg",
                         title = f"題目:{self.life_incorrect_title[i]}\n您的回答:{self.life_incorrect_answer[i]}",
                         text=self.life_respond[i],
                         actions=[

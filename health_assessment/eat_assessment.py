@@ -53,7 +53,7 @@ class eat(health_assessment):
             template=CarouselTemplate(
                 columns=[
                     CarouselColumn(
-                        thumbnail_image_url="https://imgur.com/dxHQuNH.jpg",
+                        thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg",
                         title = f"題目:{self.eat_incorrect_title[i]}\n您的回答:{self.eat_incorrect_answer[i]}",
                         text=self.eat_respond[i],
                         actions=[
