@@ -2,7 +2,7 @@ from flask import Flask, request, abort, jsonify
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import*
-import os
+import os,time
 from text_message.gemini import Gemini
 from text_message.message import message
 from location import Location
