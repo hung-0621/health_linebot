@@ -21,7 +21,7 @@ class life(health_assessment):
                 alt_text='生活作息建議',
                 template=CarouselTemplate(
                     columns=[
-                        self.no_incorrect_answer_column(title="生活作息建議",image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/life_image.jpg")
+                        self.no_incorrect_answer_column(title="生活",image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/life_image.jpg")
                     ]
                 )
             )

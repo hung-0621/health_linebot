@@ -34,7 +34,7 @@ class mental(health_assessment):
                         CarouselColumn(
                             thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/mental_image.jpg",
                             title = f"題目:{self.mental_incorrect_title[i]}\n您的回答:程度{self.mental_incorrect_answer[i]}",
-                            text=self.mental_respond[i],
+                            text = self.mental_respond[self.mental_incorrect_answer_index[i]],
                             actions=[
                                 PostbackTemplateAction(
                                     label=' ',

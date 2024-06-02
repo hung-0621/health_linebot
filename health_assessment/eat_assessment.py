@@ -21,6 +21,11 @@ class eat(health_assessment):
         self.eat_incorrect_answer = self.handle_incorrect_answer(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
         self.eat_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
         self.eat_incorrect_title = [self.eat_title[i] for i in self.eat_incorrect_answer_index]
+        print(self.eat_correct_answer)
+        print(self.eat_incorrect_answer)
+        print(self.eat_incorrect_answer_index)
+        print(self.eat_incorrect_title)
+        print(self.eat_respond[5])
         
     def BRM_Calculate(self)->float:
         # 男生=66+(13.7體重)+(5.0身高)-(6.8*年齡)
@@ -100,7 +105,7 @@ class eat(health_assessment):
                 CarouselColumn(
                     thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg",
                     title = f"題目:{self.eat_incorrect_title[i]}\n您的回答:{self.eat_incorrect_answer[i]}",
-                    text = self.eat_respond[i],
+                    text = self.eat_respond[self.eat_incorrect_answer_index[i]],
                     actions=[
                         PostbackTemplateAction(
                             label=' ',
