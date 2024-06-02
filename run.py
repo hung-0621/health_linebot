@@ -12,7 +12,7 @@ from health_assessment.eat_assessment import eat
 from health_assessment.life_assessment import life
 from health_assessment.mental_assessment import mental
 
-class MainBot:
+class Main:
     def __init__(self):
         self.app = Flask(__name__)
         self.line_bot_api = LineBotApi(os.getenv("CHANNEL_ACCESS_TOKEN"))
@@ -105,5 +105,5 @@ class MainBot:
         self.app.run()
 
 if __name__ == "__main__":
-    bot = MainBot()
+    bot = Main()
     bot.run()
