@@ -17,8 +17,8 @@ class eat(health_assessment):
         self.eat_answer = self.answer[1:7]
         self.eat_correct_answer = self.correct_answer[0:6]
         self.eat_respond = self.respond[0:6]
-        self.eat_incorrect_answer=[]
-        #self.eat_incorrect_answer = self.handle_incorrect_answer(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
+        
+        self.eat_incorrect_answer = self.handle_incorrect_answer(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
         self.eat_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
         self.eat_incorrect_title = [self.eat_title[i] for i in self.eat_incorrect_answer_index]
         
@@ -65,7 +65,7 @@ class eat(health_assessment):
         message = CarouselColumn(
                     thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg",
                     title = "您的相關身體數據：",
-                    text='%-6s:%2.2f\n%-6s:%5.2f\n%s:%2.2f' % ("BMI",self.BMI_Calculate(),"TDEE",self.TDEE_Calculate(),"體脂率",self.Body_fat_Calculate()),
+                    text = '%-6s:%2.2f\n%-6s:%5.2f\n%s:%2.2f' % ("BMI",self.BMI_Calculate(),"TDEE",self.TDEE_Calculate(),"體脂率",self.Body_fat_Calculate()),
                     actions=[
                         PostbackTemplateAction(
                             label=' ',
@@ -77,7 +77,7 @@ class eat(health_assessment):
     # D.飲食建議
     def eat_template(self)->TemplateSendMessage:
         if self.eat_incorrect_answer == []:
-            message = message = TemplateSendMessage(
+            message = TemplateSendMessage(
                 alt_text='飲食建議',
                 template=CarouselTemplate(
                     columns=[
@@ -87,23 +87,24 @@ class eat(health_assessment):
                 )
             )
         else:
+            incorrect_columns = [
+                CarouselColumn(
+                    thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg",
+                    title = f"題目:{self.eat_incorrect_title[i]}\n您的回答:{self.eat_incorrect_answer[i]}",
+                    text = self.eat_respond[i],
+                    actions=[
+                        PostbackTemplateAction(
+                            label=' ',
+                            data='do_nothing'
+                        )
+                    ]
+                ) for i in range(len(self.eat_incorrect_title))
+            ]
+            incorrect_columns.insert(0,self.body_imformation())
             message = TemplateSendMessage(
                 alt_text='飲食建議',
                 template=CarouselTemplate(
-                    columns=[
-                        self.body_imformation(),
-                        CarouselColumn(
-                            thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg",
-                            title = f"題目:{self.eat_incorrect_title[i]}\n您的回答:{self.eat_incorrect_answer[i]}",
-                            text = self.eat_respond[i],
-                            actions=[
-                                PostbackTemplateAction(
-                                    label=' ',
-                                    data='do_nothing'
-                                )
-                            ]
-                        )for i in range(len(self.eat_incorrect_title))
-                    ]
+                    columns=incorrect_columns
                 )
             )
         return message
