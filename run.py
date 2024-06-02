@@ -11,6 +11,8 @@ from keep_bot_awake import*
 from get_user_data.handle_MySQL import*
 from health_assessment.assessment import health_assessment
 from health_assessment.eat_assessment import eat
+from health_assessment.life_assessment import life
+from health_assessment.mental_assessment import mental
 #from dotenv import load_dotenv 
 # ========================從這裡執行==================================
 # load_dotenv()
@@ -68,13 +70,13 @@ def handle_text_message(event):
         eat_assessment = eat(user_id=user_id)
         send_message(line_bot_api=line_bot_api,event=event, message=eat_assessment.eat_template())
     # E.
-    # elif mtext == '*取得心理健康狀況分析結果*':
-    #     mental_assessment = google_sheets.mental()
-    #     send_message(line_bot_api=line_bot_api,event=event, message=mental_assessment)# type TextSendMessage
+    elif mtext == '*取得心理健康狀況分析結果*':
+        mental_assessment = mental(user_id=user_id)
+        send_message(line_bot_api=line_bot_api,event=event, message=mental_assessment.mental_template())# type TextSendMessage
     # F.
-    # elif mtext == '*取得生活作息狀況分析結果*':
-    #     sport_assessment = google_sheets.sport()
-    #     send_message(line_bot_api=line_bot_api,event=event, message=life_assessment)
+    elif mtext == '*取得生活作息狀況分析結果*':
+        life_assessment = life(user_id=user_id)
+        send_message(line_bot_api=line_bot_api,event=event, message=life_assessment.life_template())
     
     #                        ===機器人回復===
     

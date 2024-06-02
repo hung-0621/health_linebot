@@ -20,7 +20,7 @@ class eat(health_assessment):
         
         self.eat_incorrect_answer = self.handle_incorrect_answer(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
         self.eat_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
-        self.eat_incorrect_title = [self.title[i] for i in self.eat_incorrect_answer_index]
+        self.eat_incorrect_title = [self.title[i+1] for i in self.eat_incorrect_answer_index]
         
     def TDEE_Calculate(self)->float:
         #男性：TDEE = (10 × 体重kg) + (6.25 × 身高cm) - (5 × 年龄岁) + 5

@@ -17,37 +17,6 @@ class message():
         )
         return message
     
-    # B.搜尋健身房的使用說明
-    def how_to_use_location()->TemplateSendMessage:  #轉盤樣板
-        # 圖片存的地方：https://imgur.com/a/eLD45kf
-        Instruction={
-            '搜尋附近健身房的使用說明：':"https://imgur.com/dxHQuNH.jpg",
-            '1.首先點擊左下角的鍵盤按鈕':"https://imgur.com/J6NOYS5.jpg",
-            '2.點擊左側的第二個箭頭按鈕':"https://imgur.com/F0t1RKp.jpg",
-            '3.點擊左側的加號按鈕':"https://imgur.com/QBLqu93.jpg",
-            '4.點擊位置資訊':"https://imgur.com/rFIqLU5.jpg",
-            '5.選取您的位置後，點擊右上角的分享':"https://imgur.com/MQKETM2.jpg"
-        }
-        message = TemplateSendMessage(
-            alt_text='搜尋健身房功能的使用說明',
-            template=CarouselTemplate(
-                columns=[
-                    CarouselColumn(
-                        thumbnail_image_url=Instruction.get(instruction),
-                        title = instruction,
-                        text='（請向右滑動）',
-                        actions=[
-                            PostbackTemplateAction(
-                                label=' ',
-                                data='do_nothing'
-                            )
-                        ]
-                    )for instruction in Instruction
-                ]
-            )
-        )
-        return message
-    
     # C.健康評估
     def health_assessment(user_name:str,user_id:str)->TextSendMessage:
         form_url = "https://docs.google.com/forms/d/e/1FAIpQLSd-wniwRvdQl6xSBVvMV0ZqO4QfK46aKN3Upki01VeD712I7w/viewform"
