@@ -9,7 +9,7 @@ class mental(health_assessment):
         
         self.mental_title = self.title[13:]
         self.mental_answer = self.answer[13:]
-        self.mental_correct_answer = [[4,5] for i in range(5)]
+        self.mental_correct_answer = [[1,2,3] for i in range(5)]
         self.mental_respond = self.respond[12:]
         self.mental_incorrect_answer = self.handle_incorrect_answer(user_answer=self.mental_answer,correct_answer=self.mental_correct_answer)
         self.mental_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.mental_answer,correct_answer=self.mental_correct_answer)
