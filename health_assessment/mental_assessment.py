@@ -13,7 +13,7 @@ class mental(health_assessment):
         self.mental_respond = self.respond[12:]
         self.mental_incorrect_answer = self.handle_incorrect_answer(user_answer=self.mental_answer,correct_answer=self.mental_correct_answer)
         self.mental_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.mental_answer,correct_answer=self.mental_correct_answer)
-        self.mental_incorrect_title = [self.correct_answer[i] for i in self.mental_incorrect_answer_index]
+        self.mental_incorrect_title = [self.title[i] for i in self.mental_incorrect_answer_index]
         
     # E.心理健康建議
     def mental_template(self):
