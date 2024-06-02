@@ -23,13 +23,14 @@ class eat(health_assessment):
         self.eat_incorrect_title = [self.eat_title[i] for i in self.eat_incorrect_answer_index]
         
     def BRM_Calculate(self)->float:
-        #男性：TDEE = (10 × 体重kg) + (6.25 × 身高cm) - (5 × 年龄岁) + 5
-        #女性：TDEE = (10 × 体重kg) + (6.25 × 身高cm) - (5 × 年龄岁) - 161
-        BRM = 10 * self.weight + 6.25 * self.height
+        # 男生=66+(13.7體重)+(5.0身高)-(6.8*年齡)
+        # 女生=655+(9.6體重)+(1.8身高)-(4.7*年齡)
+
         if self.gender == "男性":
-            BRM -= (5 * self.age) + 5
+            BRM = 66 + (13.7 * self.weight) + (5.0 * self.height) - (6.8 * self.age)
         else:
-            BRM -= (5 * self.age) - 161
+            BRM = 655 + (9.6 * self.weight) + (1.8 * self.height) - (4.7 * self.age)
+            
         return BRM
             
     def TDEE_Calculate(self)->float:
@@ -65,11 +66,19 @@ class eat(health_assessment):
         message = CarouselColumn(
                     thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg",
                     title = "您的相關身體數據：",
-                    text = '%-6s:%2.2f\n%-6s:%5.2f\n%s:%2.2f' % ("BMI",self.BMI_Calculate(),"TDEE",self.TDEE_Calculate(),"體脂率",self.Body_fat_Calculate()),
+                    text = '%-6s:%2.2f\n%-6s:%5.2f\n%-s:%2.2f%s\n(數據可能因為計算公式不同而有變動)' % ("BMI",self.BMI_Calculate(),"TDEE",self.TDEE_Calculate(),"體脂率",self.Body_fat_Calculate(),chr(37)),
                     actions=[
-                        PostbackTemplateAction(
-                            label=' ',
-                            data='do_nothing'
+                        URITemplateAction(
+                            label='BMI相關文章',
+                            uri='https://www.hpa.gov.tw/Search/GoogleSearch.aspx?queryString=BMI'
+                        ),
+                        URITemplateAction(
+                            label="TDEE相關文章",
+                            uri="https://ricky.tw/all/what-is-tdee/"
+                        ),
+                        URITemplateAction(
+                            label="體脂率相關文章",
+                            uri="https://tools.heho.com.tw/bodyfat/"
                         )
                     ]
                 )
@@ -93,6 +102,14 @@ class eat(health_assessment):
                     title = f"題目:{self.eat_incorrect_title[i]}\n您的回答:{self.eat_incorrect_answer[i]}",
                     text = self.eat_respond[i],
                     actions=[
+                        PostbackTemplateAction(
+                            label=' ',
+                            data='do_nothing'
+                        ),
+                        PostbackTemplateAction(
+                            label=' ',
+                            data='do_nothing'
+                        ),
                         PostbackTemplateAction(
                             label=' ',
                             data='do_nothing'
