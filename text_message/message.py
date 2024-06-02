@@ -27,14 +27,3 @@ class message():
                                         \n這是健康評估表單的連結：{form_url_with_id}"""        
                                         )
         return message
-    # D.飲食建議
-    def eat_assessment():
-        # TDEE
-        pass
-    # E.心理健康建議
-    def mental_assessment():
-        pass
-
-    # F.生活作息建議
-    def life_assessment():
-        pass
