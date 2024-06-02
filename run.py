@@ -9,7 +9,6 @@ from text_message.message import message
 from location import*
 from keep_bot_awake import*
 from get_user_data.handle_MySQL import*
-from health_assessment.assessment import health_assessment
 from health_assessment.eat_assessment import eat
 from health_assessment.life_assessment import life
 from health_assessment.mental_assessment import mental
@@ -18,11 +17,6 @@ from health_assessment.mental_assessment import mental
 # load_dotenv()
 
 app = Flask(__name__)
-
-MYSQL_HOST = os.getenv('MYSQL_HOST')
-MYSQL_USER = os.getenv('MYSQL_USER')
-MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
-MYSQL_DATABASE = os.getenv('MYSQL_DATABASE')
 
 line_bot_api = LineBotApi(os.getenv("CHANNEL_ACCESS_TOKEN"))
 handler = WebhookHandler(os.getenv("CHANNEL_SECRET"))
@@ -55,13 +49,14 @@ def handle_text_message(event):
     # 用戶名稱
     profile = line_bot_api.get_profile(user_id)
     user_name = profile.display_name
+    print(mtext)
     print(user_name)
     # A.
     if mtext == '*操作說明*':
         send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use())
-    # B.
-    # elif mtext == '*搜尋附近健身房的使用說明*':
-    #     send_message(line_bot_api=line_bot_api,event=event, message=message.how_to_use_location())
+        
+    # B. LocationMessage
+    
     # C.
     elif mtext == '*健康評估*':
         send_message(line_bot_api=line_bot_api,event=event, message=message.health_assessment(user_name=user_name,user_id=user_id))
@@ -85,6 +80,7 @@ def handle_text_message(event):
 
 # 位置訊息        
 @handler.add(MessageEvent,message=LocationMessage)
+# B.
 def handle_location_message(event):
     send_message(line_bot_api=line_bot_api,event=event, message=location.map_location(event))
     
@@ -96,7 +92,7 @@ def update_MySQL():
     if bool(status):
         try:
             print("=== update database ===")
-            time.sleep(3)
+            time.sleep(2)
             database = handle_MySQL()
             database.load_data()
             print("=== finish update ===")
@@ -104,6 +100,8 @@ def update_MySQL():
         except Exception as e:
             print(f"An error occurred: {e}")
             return jsonify({'message': 'An error occurred'}), 500
+    else:
+        return "status : False"
             
     
 # 喚醒Render
