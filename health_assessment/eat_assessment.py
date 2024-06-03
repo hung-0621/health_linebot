@@ -90,20 +90,39 @@ class eat(health_assessment):
         return message
     # D.飲食建議
     def eat_template(self)->TemplateSendMessage:
+        image_url = "https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg"
+        title = "飲食"
         if self.eat_incorrect_answer == []:
             message = TemplateSendMessage(
                 alt_text='飲食建議',
                 template=CarouselTemplate(
                     columns=[
                         self.body_imformation(),
-                        self.no_incorrect_answer_column(title="飲食",image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg")
-                    ]
-                )
+                        self.no_incorrect_answer_column(
+                            title="飲食",
+                            image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg",
+                            actions=[
+                                PostbackTemplateAction(
+                                label=' ',
+                                data='do_nothing'
+                            ),
+                            PostbackTemplateAction(
+                                label=' ',
+                                data='do_nothing'
+                            ),
+                            PostbackTemplateAction(
+                                label=' ',
+                                data='do_nothing'
+                            )
+                        ]
+                    )
+                ]
             )
+        )
         else:
             incorrect_columns = [
                 CarouselColumn(
-                    thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/eat_image.jpg",
+                    thumbnail_image_url=image_url,
                     title = f"題目:{self.eat_incorrect_title[i]}\n您的回答:{self.eat_incorrect_answer[i]}",
                     text = self.eat_respond[self.eat_incorrect_answer_index[i]],
                     actions=[
@@ -124,7 +143,7 @@ class eat(health_assessment):
             ]
             incorrect_columns.insert(0,self.body_imformation())
             message = TemplateSendMessage(
-                alt_text='飲食建議',
+                alt_text=f'{title}建議',
                 template=CarouselTemplate(
                     columns=incorrect_columns
                 )

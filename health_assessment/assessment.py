@@ -52,17 +52,18 @@ class health_assessment():
         return [i for i in range(len(correct_answer)) if user_answer[i] not in correct_answer[i]]
     
     # 沒有不正確的答案，回傳該行
-    def no_incorrect_answer_column(self,title:str,image_url:str):
+    def no_incorrect_answer_column(self,title:str,image_url:str,
+                                actions:list = [
+                                    PostbackTemplateAction(
+                                    label=' ',
+                                    data='do_nothing'
+                                    )
+                                ]):
         message = CarouselColumn(
                         thumbnail_image_url=image_url,  #顯示的圖片
                         title=f'您在"{title}"方面的狀況相當完美！\n請繼續維持！',  #主標題
                         text='歡迎點選其他建議項目！',  #副標題
-                        actions=[
-                            PostbackTemplateAction(
-                                label=' ',
-                                data='do_nothing'
-                            )
-                        ]
+                        actions=actions
                     )
         return message
 
