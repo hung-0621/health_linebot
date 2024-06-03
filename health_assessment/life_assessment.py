@@ -33,7 +33,7 @@ class life(health_assessment):
                         CarouselColumn(
                             thumbnail_image_url="https://raw.githubusercontent.com/hung-0621/health_linebot/get_user_data/images/life_image.jpg",
                             title = f"題目:{self.life_incorrect_title[i]}\n您的回答:{self.life_incorrect_answer[i]}",
-                            text=self.life_respond[i],
+                            text = self.life_respond[self.life_incorrect_answer_index[i]],
                             actions=[
                                 PostbackTemplateAction(
                                     label=' ',
