@@ -6,8 +6,8 @@ import os,time
 from text_message.gemini import Gemini
 from text_message.message import message
 from location import Location
-from keep_bot_awake import*
-from get_user_data.handle_MySQL import*
+from keep_bot_awake import *
+from get_user_data.handle_MySQL import handle_MySQL
 from health_assessment.eat_assessment import eat
 from health_assessment.life_assessment import life
 from health_assessment.mental_assessment import mental

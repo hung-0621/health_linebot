@@ -1,5 +1,3 @@
-# import sys
-# sys.path.append("C:/Users/Kenny/Documents/health_linebot_project/health_linebot/health_assessment")
 from health_assessment.assessment import health_assessment
 from linebot.models import *
 
@@ -21,11 +19,6 @@ class eat(health_assessment):
         self.eat_incorrect_answer = self.handle_incorrect_answer(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
         self.eat_incorrect_answer_index = self.handle_incorrect_answer_index(user_answer=self.eat_answer,correct_answer=self.eat_correct_answer)
         self.eat_incorrect_title = [self.eat_title[i] for i in self.eat_incorrect_answer_index]
-        print(self.eat_correct_answer)
-        print(self.eat_incorrect_answer)
-        print(self.eat_incorrect_answer_index)
-        print(self.eat_incorrect_title)
-        print(self.eat_respond[5])
         
     def BRM_Calculate(self)->float:
         # 男生=66+(13.7體重)+(5.0身高)-(6.8*年齡)

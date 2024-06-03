@@ -19,8 +19,6 @@ class handle_MySQL:
         self.GOOGLE_SHEET_URL = os.getenv('GOOGLE_SHEET_URL')
         
         # 連接到 Google Sheets
-        # "C:/Users/Kenny/Downloads/global-phalanx-421818-9a75b24317ed.json"
-        # "/etc/secrets/google_sheet_json_keyfile"
         self.gc = gspread.service_account(filename="/etc/secrets/google_sheet_json_keyfile")
     
     def connect_to_database(self):

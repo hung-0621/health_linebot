@@ -1,5 +1,3 @@
-# import sys
-# sys.path.append("C:/Users/Kenny/Documents/health_linebot_project/health_linebot/health_assessment")
 from health_assessment.assessment import health_assessment
 from linebot.models import *
 
