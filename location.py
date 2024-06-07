@@ -38,6 +38,7 @@ class Location:
         dd = "電話:{}\n地址:{}".format(r['formatted_phone_number'],r['formatted_address'])
         return dd
     
+    # B.找健身房
     def send_template(self, event, gym_info):
         carousel_template_message = TemplateSendMessage(
             alt_text='地點',
